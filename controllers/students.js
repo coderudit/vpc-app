@@ -11,9 +11,19 @@ const db = mysql.createConnection({
   database: dbName,
 });
 
+const connectToMysql = () => {
+  db.connect((err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log("DB Connected");
+  });
+};
+
 const storeStudentsInRDS = async (req, res) => {
-  //secretManager();
   console.log("storeStudentsInRDS called.");
+  connectToMysql();
 
   var { students } = req.body;
 
