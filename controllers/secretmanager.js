@@ -1,5 +1,3 @@
-// https://aws.amazon.com/developers/getting-started/nodejs/
-const { setConfig } = require("./config");
 const accessKeyId = "AKIAXKBPMQVLW56QHH6C"; //process.env.AWS_ACCESS_KEY;
 const secretAccessKey = "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"; //process.env.AWS_SECRET_ACCESS;
 
@@ -16,10 +14,6 @@ var client = new AWS.SecretsManager({
   accessKeyId,
   secretAccessKey,
 });
-
-// In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
-// See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-// We rethrow the exception by default.
 
 const secretManager = () => {
   client.getSecretValue({ SecretId: secretName }, function (err, data) {
@@ -51,14 +45,11 @@ const secretManager = () => {
       if ("SecretString" in data) {
         secret = data.SecretString;
         let secretObject = JSON.parse(secret);
-        process.env.username = secretObject.username;
-        setConfig(
-          secretObject.username,
-          secretObject.password,
-          secretObject.port,
-          secretObject.dbname,
-          secretObject.host
-        );
+        process.env.DB_USER = secretObject.username;
+        process.env.DB_PASSWORD = secretObject.password;
+        process.env.DB_PORT = secretObject.port;
+        process.env.DB_NAME = secretObject.dbname;
+        process.env.DB_HOST = secretObject.host;
       } else {
         let buff = new Buffer(data.SecretBinary, "base64");
         decodedBinarySecret = buff.toString("ascii");

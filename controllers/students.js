@@ -1,14 +1,11 @@
-const { secretManager } = require("./secretmanager");
 const mysql = require("mysql");
-//const { connectToMysql, db } = require("./mysqlConnect");
-const { configObject } = require("./config");
 
 const db = mysql.createConnection({
-  host: "rob-db.cluster-ccw2rrjqpyvt.us-east-1.rds.amazonaws.com",
-  port: 3306,
-  user: "admin",
-  password: "Passw0rd",
-  database: "studentsdb",
+  host: process.env.DB_HOST, //"rob-db.cluster-ccw2rrjqpyvt.us-east-1.rds.amazonaws.com",
+  port: process.env.DB_PORT, //3306
+  user: process.env.DB_USER, //"admin",
+  password: process.env.DB_PASSWORD, //"Passw0rd",
+  database: process.env.DB_NAME, //"studentsdb",
 });
 
 const connectToMysqlAndInsertData = (students) => {
@@ -36,7 +33,6 @@ const connectToMysqlAndInsertData = (students) => {
 const storeStudentsInRDS = async (req, res) => {
   console.log("storeStudentsInRDS called.");
   console.log(process.env.username);
-  //console.log(process.env.DB_SECRET.username);
   const { students } = req.body;
   console.log(students);
   connectToMysqlAndInsertData(students);
