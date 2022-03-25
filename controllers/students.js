@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-const { secretManager } = require("./controllers/secretmanager");
+const { secretManager } = require("./secretmanager");
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST, //"rob-db.cluster-ccw2rrjqpyvt.us-east-1.rds.amazonaws.com",
