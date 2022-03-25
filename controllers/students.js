@@ -30,11 +30,11 @@ const storeStudentsInRDS = async (req, res) => {
       `INSERT INTO students (first_name, last_name, banner) VALUES ('${students[index].first_name}', '${students[index].last_name}', '${students[index].banner}')`,
       function (err, result, fields) {
         if (err) res.send(err);
-        res.send(201);
         //if (result) res.send(result);
       }
     );
   }
+  res.send(201);
 };
 
 const getStudentsFromRDS = async (req, res) => {
