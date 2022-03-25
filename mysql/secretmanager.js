@@ -1,4 +1,5 @@
 // https://aws.amazon.com/developers/getting-started/nodejs/
+const mysql = require("mysql");
 
 const accessKeyId = "AKIAXKBPMQVLW56QHH6C"; //process.env.AWS_ACCESS_KEY;
 const secretAccessKey = "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"; //process.env.AWS_SECRET_ACCESS;
@@ -21,11 +22,11 @@ var client = new AWS.SecretsManager({
 // See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
 // We rethrow the exception by default.
 
-const secretReturn = client.getSecretValue(
-  { SecretId: secretName },
-  function (err, data) {
+let username, password, port, dbName, host;
+const secretManager = () => {
+  client.getSecretValue({ SecretId: secretName }, function (err, data) {
     if (err) {
-      console.log(JSON.stringify(err));
+      console.log("Error in secret manager: " + JSON.stringify(err));
       if (err.code === "DecryptionFailureException")
         // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
         // Deal with the exception here, and/or rethrow at your discretion.
@@ -49,17 +50,52 @@ const secretReturn = client.getSecretValue(
     } else {
       // Decrypts secret using the associated KMS key.
       // Depending on whether the secret is a string or binary, one of these fields will be populated.
-      console.log("In else");
       if ("SecretString" in data) {
         secret = data.SecretString;
-        console.log("In secret");
-        console.log(JSON.stringify(secret));
+        let secretObject = JSON.parse(secret);
+        username = secretObject.username;
+        password = secretObject.password;
+        port = secretObject.port;
+        dbName = secretObject.dbname;
+        host = secretObject.host;
+        //console.log(secretObject);
+        //console.log(username, password, port, dbName, host);
+
+        const db = mysql.createConnection({
+          host: "rob-db.cluster-ccw2rrjqpyvt.us-east-1.rds.amazonaws.com",
+          database: "rob-db",
+          port: 3306,
+          user: "admin",
+          password: "Passw0rd",
+          dialect: "mysql",
+        });
+
+        /*const db = mysql.createConnection({
+          host: "127.0.0.1",
+          database: "mealstop",
+          port: 3306,
+          user: "root",
+          password: "password",
+        });*/
+
+        const connectToMysql = () => {
+          console.log(username, password, port, dbName, host);
+          db.connect((err) => {
+            if (err) {
+              console.log(err);
+              return;
+            }
+            console.log("DB Connected");
+          });
+        };
+
+        connectToMysql();
       } else {
         let buff = new Buffer(data.SecretBinary, "base64");
         decodedBinarySecret = buff.toString("ascii");
       }
     }
-  }
-);
+  });
+};
 
-module.exports = { secretReturn };
+module.exports = { secretManager, username, password, port, dbName, host };
