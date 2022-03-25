@@ -62,11 +62,10 @@ const secretManager = () => {
         //console.log(username, password, port, dbName, host);
 
         const db = mysql.createConnection({
-          host: "rob-db.cluster-ccw2rrjqpyvt.us-east-1.rds.amazonaws.com",
-          port: 3306,
-          user: "admin",
-          password: "Passw0rd",
-          dialect: "mysql",
+          host: host,
+          port: port,
+          user: username,
+          password: password,
         });
 
         /*const db = mysql.createConnection({
