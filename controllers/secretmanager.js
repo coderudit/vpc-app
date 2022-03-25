@@ -1,5 +1,5 @@
 // https://aws.amazon.com/developers/getting-started/nodejs/
-const mysql = require("mysql");
+const { setConfig } = require("./config");
 const accessKeyId = "AKIAXKBPMQVLW56QHH6C"; //process.env.AWS_ACCESS_KEY;
 const secretAccessKey = "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"; //process.env.AWS_SECRET_ACCESS;
 
@@ -21,7 +21,6 @@ var client = new AWS.SecretsManager({
 // See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
 // We rethrow the exception by default.
 
-let username, password, port, dbName, host, db;
 const secretManager = () => {
   client.getSecretValue({ SecretId: secretName }, function (err, data) {
     if (err) {
@@ -52,31 +51,13 @@ const secretManager = () => {
       if ("SecretString" in data) {
         secret = data.SecretString;
         let secretObject = JSON.parse(secret);
-        username = secretObject.username;
-        password = secretObject.password;
-        port = secretObject.port;
-        dbName = secretObject.dbname;
-        host = secretObject.host;
-
-        db = mysql.createConnection({
-          host: host,
-          port: port,
-          user: username,
-          password: password,
-        });
-
-        const connectToMysql = () => {
-          console.log(username, password, port, dbName, host);
-          db.connect((err) => {
-            if (err) {
-              console.log(err);
-              return;
-            }
-            console.log("DB Connected");
-          });
-        };
-
-        connectToMysql();
+        setConfig(
+          secretObject.username,
+          secretObject.password,
+          secretObject.port,
+          secretObject.dbname,
+          secretObject.host
+        );
       } else {
         let buff = new Buffer(data.SecretBinary, "base64");
         decodedBinarySecret = buff.toString("ascii");
@@ -85,4 +66,4 @@ const secretManager = () => {
   });
 };
 
-module.exports = { secretManager, db };
+module.exports = { secretManager };

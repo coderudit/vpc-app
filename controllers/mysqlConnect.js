@@ -1,11 +1,12 @@
 const mysql = require("mysql");
+const { username, password, port, dbName, host } = require("./config");
 
 const db = mysql.createConnection({
-  host: "localhost",
-  port: "3306",
-  user: "root",
-  password: "password",
-  database: "vpc-db",
+  host: host,
+  port: port,
+  user: username,
+  password: password,
+  database: dbName,
 });
 
 const connectToMysql = () => {
@@ -18,4 +19,4 @@ const connectToMysql = () => {
   });
 };
 
-module.exports = { connectToMysql };
+module.exports = { connectToMysql, db };
