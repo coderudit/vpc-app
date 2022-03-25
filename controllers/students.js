@@ -2,11 +2,11 @@ const mysql = require("mysql");
 const { secretManager } = require("./secretmanager");
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST, //"rob-db.cluster-ccw2rrjqpyvt.us-east-1.rds.amazonaws.com",
-  port: process.env.DB_PORT, //3306
-  user: process.env.DB_USER, //"admin",
-  password: process.env.DB_PASSWORD, //"Passw0rd",
-  database: process.env.DB_NAME, //"studentsdb",
+  host: "rob-db.cluster-ccw2rrjqpyvt.us-east-1.rds.amazonaws.com",
+  port: 3306,
+  user: "admin",
+  password: "Passw0rd",
+  database: "studentsdb",
 });
 
 const connectToMysqlAndInsertData = (students) => {
