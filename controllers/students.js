@@ -34,7 +34,7 @@ const storeStudentsInRDS = async (req, res) => {
       }
     );
   }
-  res.send(201);
+  res.sendStatus(201);
 };
 
 const getStudentsFromRDS = async (req, res) => {
