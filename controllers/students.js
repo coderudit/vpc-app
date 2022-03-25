@@ -23,7 +23,7 @@ const connectToMysqlAndInsertData = () => {
       console.log(students[index].last_name);
       console.log(students[index].banner);
       db.query(
-        `INSERT INTO students(first_name, last_name, banner) VALUES ('${students[index].first_name}, '${students[index].last_name}', '${students[index].banner}')')`,
+        `INSERT INTO studentsdb.students(first_name, last_name, banner) VALUES ('${students[index].first_name}, '${students[index].last_name}', '${students[index].banner}')')`,
         function (err, result, fields) {
           if (err) res.send(err);
           if (result) res.send(result);
@@ -49,10 +49,13 @@ const getStudentsFromRDS = async (req, res) => {
     }
     console.log("Querying data.");
 
-    db.query(`SELECT * FROM students;`, function (err, result, fields) {
-      if (err) res.send(err);
-      if (result) res.send(result);
-    });
+    db.query(
+      `SELECT * FROM studentsdb.students;`,
+      function (err, result, fields) {
+        if (err) res.send(err);
+        if (result) res.send(result);
+      }
+    );
   });
 };
 
