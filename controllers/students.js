@@ -9,42 +9,34 @@ const db = mysql.createConnection({
   database: "studentsdb",
 });
 
-const connectToMysqlAndInsertData = (students) => {
+const connectToMysql = () => {
   db.connect((err) => {
     if (err) {
       console.log(err);
       return;
     }
-    console.log("DB Connected");
-    for (let index = 0; index < students.length; index++) {
-      console.log(students[index].first_name);
-      console.log(students[index].last_name);
-      console.log(students[index].banner);
-      db.query(
-        `INSERT INTO students (first_name, last_name, banner) VALUES ('${students[index].first_name}', '${students[index].last_name}', '${students[index].banner}')`,
-        function (err, result, fields) {
-          if (err) console.log(err);
-          if (result) console.log(result);
-        }
-      );
-      return;
-    }
+    console.log("Connected to database.");
   });
 };
 
 const storeStudentsInRDS = async (req, res) => {
-  console.log("storeStudentsInRDS called.");
-  secretManager();
-  console.log(process.env.DB_USER);
-  const { students } = req.body;
-  console.log(students);
-  connectToMysqlAndInsertData(students);
-  res.send(201);
+  console.log("Store students in RDS called.");
+  for (let index = 0; index < students.length; index++) {
+    console.log(students[index].first_name);
+    console.log(students[index].last_name);
+    console.log(students[index].banner);
+    db.query(
+      `INSERT INTO students (first_name, last_name, banner) VALUES ('${students[index].first_name}', '${students[index].last_name}', '${students[index].banner}')`,
+      function (err, result, fields) {
+        if (err) res.send(err);
+        if (result) es.send(result);
+      }
+    );
+  }
 };
 
 const getStudentsFromRDS = async (req, res) => {
-  //secretManager();
-  console.log("Querying data.");
+  console.log("Get students from RDS called.");
 
   db.query(`SELECT * FROM students;`, function (err, result, fields) {
     if (err) res.send(err);
@@ -52,4 +44,4 @@ const getStudentsFromRDS = async (req, res) => {
   });
 };
 
-module.exports = { storeStudentsInRDS, getStudentsFromRDS };
+module.exports = { storeStudentsInRDS, getStudentsFromRDS, connectToMysql };
