@@ -1,4 +1,5 @@
 const { secretManager } = require("./secretmanager");
+const mysql = require("mysql");
 //const { connectToMysql, db } = require("./mysqlConnect");
 const { username, password, port, dbName, host } = require("./config");
 
