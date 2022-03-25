@@ -1,6 +1,4 @@
 const mysql = require("mysql");
-//const { secretManager } = require("./secretmanager");
-//const {host}
 const db = mysql.createConnection({
   host: "rob-db.cluster-ccw2rrjqpyvt.us-east-1.rds.amazonaws.com",
   port: 3306,
