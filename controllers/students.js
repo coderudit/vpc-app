@@ -3,7 +3,7 @@ const mysql = require("mysql");
 //const { connectToMysql, db } = require("./mysqlConnect");
 const { configObject } = require("./config");
 
-const db = mysql.createConnection({
+/*const db = mysql.createConnection({
   host: host,
   port: port,
   user: username,
@@ -19,7 +19,7 @@ const connectToMysql = () => {
     }
     console.log("DB Connected");
   });
-};
+};*/
 
 const storeStudentsInRDS = async (req, res) => {
   console.log("storeStudentsInRDS called.");
