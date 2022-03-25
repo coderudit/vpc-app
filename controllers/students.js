@@ -3,12 +3,12 @@ const mysql = require("mysql");
 //const { connectToMysql, db } = require("./mysqlConnect");
 const { configObject } = require("./config");
 
-/*const db = mysql.createConnection({
-  host: host,
-  port: port,
-  user: username,
-  password: password,
-  database: dbName,
+const db = mysql.createConnection({
+  host: "rob-db.cluster-ccw2rrjqpyvt.us-east-1.rds.amazonaws.com",
+  port: 3306,
+  user: "admin",
+  password: "Passw0rd",
+  database: "studentsdb",
 });
 
 const connectToMysql = () => {
@@ -19,13 +19,13 @@ const connectToMysql = () => {
     }
     console.log("DB Connected");
   });
-};*/
+};
 
 const storeStudentsInRDS = async (req, res) => {
   console.log("storeStudentsInRDS called.");
-  console.log(configObject);
-  console.log(configObject.username);
-  //connectToMysql();
+  //console.log(configObject);
+  //console.log(configObject.username);
+  connectToMysql();
 
   var { students } = req.body;
 
