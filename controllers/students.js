@@ -29,6 +29,7 @@ const storeStudentsInRDS = async (req, res) => {
 };
 
 const getStudentsFromRDS = async (req, res) => {
+  secretManager();
   db.connect((err) => {
     if (err) {
       console.log(err);

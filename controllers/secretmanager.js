@@ -67,14 +67,6 @@ const secretManager = () => {
           password: password,
         });
 
-        /*const db = mysql.createConnection({
-          host: "127.0.0.1",
-          database: "mealstop",
-          port: 3306,
-          user: "root",
-          password: "password",
-        });*/
-
         const connectToMysql = () => {
           console.log(username, password, port, dbName, host);
           db.connect((err) => {
