@@ -32,7 +32,8 @@ const connectToMysqlAndInsertData = (students) => {
 
 const storeStudentsInRDS = async (req, res) => {
   console.log("storeStudentsInRDS called.");
-  console.log(process.env.username);
+  secretManager();
+  console.log(process.env.DB_USER);
   const { students } = req.body;
   console.log(students);
   connectToMysqlAndInsertData(students);
