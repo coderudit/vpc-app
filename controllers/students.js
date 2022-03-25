@@ -21,6 +21,7 @@ const connectToMysql = () => {
 
 const storeStudentsInRDS = async (req, res) => {
   console.log("Store students in RDS called.");
+  const { students } = req.body;
   for (let index = 0; index < students.length; index++) {
     console.log(students[index].first_name);
     console.log(students[index].last_name);
