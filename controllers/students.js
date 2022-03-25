@@ -23,7 +23,7 @@ const connectToMysqlAndInsertData = (students) => {
       console.log(students[index].last_name);
       console.log(students[index].banner);
       db.query(
-        `INSERT INTO students (first_name, last_name, banner) VALUES ('${students[index].first_name}, '${students[index].last_name}', '${students[index].banner}')`,
+        `INSERT INTO students (first_name, last_name, banner) VALUES ('${students[index].first_name}', '${students[index].last_name}', '${students[index].banner}')`,
         function (err, result, fields) {
           if (err) console.log(err);
           if (result) console.log(result);
