@@ -51,7 +51,7 @@ const secretManager = () => {
       if ("SecretString" in data) {
         secret = data.SecretString;
         let secretObject = JSON.parse(secret);
-        process.env.DB_SECRET = secretObject;
+        process.env.username = secretObject.username;
         setConfig(
           secretObject.username,
           secretObject.password,
