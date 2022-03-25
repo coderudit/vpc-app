@@ -23,12 +23,13 @@ const connectToMysql = () => {
 
 const storeStudentsInRDS = async (req, res) => {
   console.log("storeStudentsInRDS called.");
+  console.log(username, password, port, dbName, host);
   connectToMysql();
 
   var { students } = req.body;
 
   console.log(students);
-  db.connect((err) => {
+  /*db.connect((err) => {
     if (err) {
       console.log(err);
       return;
@@ -46,7 +47,7 @@ const storeStudentsInRDS = async (req, res) => {
         }
       );
     }
-  });
+  });*/
 };
 
 const getStudentsFromRDS = async (req, res) => {
