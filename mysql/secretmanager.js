@@ -1,6 +1,5 @@
 // https://aws.amazon.com/developers/getting-started/nodejs/
 const mysql = require("mysql");
-
 const accessKeyId = "AKIAXKBPMQVLW56QHH6C"; //process.env.AWS_ACCESS_KEY;
 const secretAccessKey = "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"; //process.env.AWS_SECRET_ACCESS;
 
@@ -96,4 +95,4 @@ const secretManager = () => {
   });
 };
 
-module.exports = { secretManager, username, password, port, dbName, host };
+module.exports = { secretManager, db };

@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const router = require("./routers/routes");
-const { secretManager, username } = require("./mysql/secretmanager");
+const { secretManager } = require("./mysql/secretmanager");
 //const { connectToMysql } = require("./mysql/mysqlConnect");
 
 app.use(express.json());
