@@ -7,7 +7,7 @@ const storeStudentsInRDS = async (req, res) => {
 
   var { students } = req.body;
   console.log(students);
-
+  console.log(db);
   db.connect((err) => {
     if (err) {
       console.log(err);
