@@ -1,4 +1,4 @@
-const { secretManager, db } = require("./mysql/secretmanager");
+const { secretManager, db } = require("./secretmanager");
 
 const storeStudentsInRDS = async (req, res) => {
   secretManager();

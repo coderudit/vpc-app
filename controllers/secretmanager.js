@@ -21,7 +21,7 @@ var client = new AWS.SecretsManager({
 // See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
 // We rethrow the exception by default.
 
-let username, password, port, dbName, host;
+let username, password, port, dbName, host, db;
 const secretManager = () => {
   client.getSecretValue({ SecretId: secretName }, function (err, data) {
     if (err) {
@@ -60,7 +60,7 @@ const secretManager = () => {
         //console.log(secretObject);
         //console.log(username, password, port, dbName, host);
 
-        const db = mysql.createConnection({
+        db = mysql.createConnection({
           host: host,
           port: port,
           user: username,
