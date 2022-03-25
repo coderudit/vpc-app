@@ -57,8 +57,6 @@ const secretManager = () => {
         port = secretObject.port;
         dbName = secretObject.dbname;
         host = secretObject.host;
-        //console.log(secretObject);
-        //console.log(username, password, port, dbName, host);
 
         db = mysql.createConnection({
           host: host,
