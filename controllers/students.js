@@ -11,7 +11,7 @@ const db = mysql.createConnection({
   database: "studentsdb",
 });
 
-const connectToMysqlAndInsertData = () => {
+const connectToMysqlAndInsertData = (students) => {
   db.connect((err) => {
     if (err) {
       console.log(err);
