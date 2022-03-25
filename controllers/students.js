@@ -27,6 +27,7 @@ const connectToMysqlAndInsertData = (students) => {
           if (result) console.log(result);
         }
       );
+      db.destroy();
     }
   });
 };
@@ -53,6 +54,7 @@ const getStudentsFromRDS = async (req, res) => {
       if (err) res.send(err);
       if (result) res.send(result);
     });
+    db.destroy();
   });
 };
 
