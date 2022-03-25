@@ -1,4 +1,4 @@
-let configObject;
+let configObject = {};
 
 const setConfig = (username, password, port, dbName, host) => {
   configObject = {
@@ -12,4 +12,4 @@ const setConfig = (username, password, port, dbName, host) => {
   console.log(username, password, port, dbName, host);
 };
 
-module.exports = { setConfig, configObject };
+module.exports = { configObject, setConfig };

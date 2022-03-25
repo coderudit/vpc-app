@@ -11,31 +11,13 @@ const db = mysql.createConnection({
   database: "studentsdb",
 });
 
-const connectToMysql = () => {
+const connectToMysqlAndInsertData = () => {
   db.connect((err) => {
     if (err) {
       console.log(err);
       return;
     }
     console.log("DB Connected");
-  });
-};
-
-const storeStudentsInRDS = async (req, res) => {
-  console.log("storeStudentsInRDS called.");
-  //console.log(configObject);
-  //console.log(configObject.username);
-  connectToMysql();
-
-  var { students } = req.body;
-
-  console.log(students);
-  /*db.connect((err) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log("Inserting data.");
     for (let index = 0; index < students.length; index++) {
       console.log(students[index].first_name);
       console.log(students[index].last_name);
@@ -48,7 +30,14 @@ const storeStudentsInRDS = async (req, res) => {
         }
       );
     }
-  });*/
+  });
+};
+
+const storeStudentsInRDS = async (req, res) => {
+  console.log("storeStudentsInRDS called.");
+  var { students } = req.body;
+  console.log(students);
+  connectToMysqlAndInsertData(students);
 };
 
 const getStudentsFromRDS = async (req, res) => {

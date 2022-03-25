@@ -4,7 +4,7 @@ const {
   getStudentsFromRDS,
 } = require("../controllers/students");
 
-router.get("/storestudents", storeStudentsInRDS);
+router.post("/storestudents", storeStudentsInRDS);
 router.get("/liststudents", getStudentsFromRDS);
 
 module.exports = router;
