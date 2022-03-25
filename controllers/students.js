@@ -1,11 +1,12 @@
 const { secretManager } = require("./secretmanager");
-const { db } = require("./mysqlConnect");
+const { connectToMysql, db } = require("./mysqlConnect");
 
 const storeStudentsInRDS = async (req, res) => {
   //secretManager();
   console.log("storeStudentsInRDS called.");
 
   var { students } = req.body;
+  connectToMysql();
   console.log(students);
   console.log(db);
   db.connect((err) => {
