@@ -29,7 +29,7 @@ const storeStudentsInRDS = async (req, res) => {
       `INSERT INTO students (first_name, last_name, banner) VALUES ('${students[index].first_name}', '${students[index].last_name}', '${students[index].banner}')`,
       function (err, result, fields) {
         if (err) res.send(err);
-        if (result) es.send(result);
+        if (result) res.sendStatus(201);
       }
     );
   }
